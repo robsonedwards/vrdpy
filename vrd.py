@@ -28,12 +28,13 @@ for df in dfs:
         cardname = df.iloc[get_index(i, n_players)]
         cards[cardname].append(i)
 
+cards_list = []
 for card, ls in cards.items():
-    cards[card] = [min(ls) + 1, round(sum(ls) / len(ls) + 1, 2)]
+    cards_list.append([card, min(ls) + 1, round(sum(ls) / len(ls) + 1, 2)])
+# Sort by min pick #
+cards_list = sorted(cards_list, key = lambda x : x[1])
+# then sort by average pick #
+cards_list = sorted(cards_list, key = lambda x : x[2])
 
-
-cards_list = sorted(cards.items(), key = lambda x : x[1][0])
-cards_list = sorted(cards_list, key = lambda x : x[1][1])
-
-for c in cards_list:
-    print(c)
+cards_df = pd.DataFrame(cards_list, columns=["cardname","min","mean"])
+cards_df.to_csv("out.csv")
