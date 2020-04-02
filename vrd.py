@@ -3,8 +3,8 @@ import os
 from collections import defaultdict
 
 # Load VRD data
-paths = os.listdir()
-paths = [path for path in paths if path[-4:] == ".csv"]
+paths = os.listdir("data")
+paths = ["data/" + path for path in paths if path[-4:] == ".csv"]
 dfs = [pd.read_csv(s) for s in paths]
 for df in dfs:
     for col in df:
